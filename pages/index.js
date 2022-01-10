@@ -1,8 +1,40 @@
+import React, {useEffect, useState} from "react"
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import axios from 'axios';
 import styles from '../styles/Home.module.css'
 
+const isBrowser = () => typeof window !== "undefined"
 export default function Home() {
+  const isBrowser = () => typeof window !== "undefined"
+  const DefaultHeader = isBrowser() ? { "authorization": "Token " + localStorage.getItem('token') } : ''
+  const login_credentials = DefaultHeader.authorization !== "Token null" ? DefaultHeader : ''
+
+  let router = useRouter()
+  const { redirection_url } = router.query
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
+
+  useEffect(() => {
+    if (isBrowser()) {
+      let value = localStorage.getItem('token')
+      if (value && value !== undefined && value !== 'undefined' && value !== null && value.length > 5 && value != '') {
+        setIsLoggedIn(true)
+      } else {
+        setIsLoggedIn(false)
+      }
+    }
+  }, [isBrowser() ? localStorage.getItem('token') : ''])
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push(`/login`)
+    }
+  }, [isBrowser(),redirection_url,isLoggedIn])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,9 +44,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <Link href={`/logout`}> 
+          <a className={`text-blue-1 underline`}>Logout </a> 
+        </Link>
 
         <p className={styles.description}>
           Get started by editing{' '}

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import axios from 'axios';
 
 import { useRouter } from 'next/router'
@@ -94,6 +95,9 @@ export default function login() {
               Login
             </Button>
             <p id="error-div"></p>
+            <Link href={`/signup`}> 
+              <a className={`text-blue-1 underline`}>Signup </a> 
+            </Link>
           </Form>
           <style jsx>{`
               section {

@@ -82,7 +82,6 @@ export default function Signup() {
       </Head>
 
       <main className={styles.main}>
-        Logout
         <section className={`col-12`}>
           <Button variant="primary" onClick={(e)=> logOut(e)}>
             Logout

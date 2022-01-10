@@ -21,7 +21,6 @@ export default function Signup() {
   useEffect(() => {
     if (isBrowser()) {
       let value = localStorage.getItem('token')
-      console.log(value,"varun")
       if (value && value !== undefined && value !== 'undefined' && value !== null && value.length > 5 && value != '') {
         setIsLoggedIn(true)
       } else {
